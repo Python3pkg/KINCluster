@@ -52,7 +52,7 @@ def replace_filter(text: str, pattern: dict) -> str:
     slower than trans_filter
     just use text_filter
     """
-    for pat, rep in pattern.items():
+    for pat, rep in list(pattern.items()):
         text = text.replace(pat, rep)
     return text
 
@@ -62,7 +62,7 @@ def text_filter(text: str, pattern: dict) -> str:
     call trans_filter, replace_filter
     """
     trans, replace = {}, {}
-    for key, value in pattern.items():
+    for key, value in list(pattern.items()):
         if len(key) == 1:
             trans[key] = value
         else:
@@ -72,8 +72,8 @@ def text_filter(text: str, pattern: dict) -> str:
     return text
 
 # find quotation for 'important word'
-pat_small_quot = re.compile(u"\'(.+?)\'")
-pat_double_quot = re.compile(u"\"(.+?)\"")
+pat_small_quot = re.compile("\'(.+?)\'")
+pat_double_quot = re.compile("\"(.+?)\"")
 def find_quotations(text):
     mat_small = pat_small_quot.finditer(text)
     mat_double = pat_double_quot.finditer(text)
@@ -102,7 +102,7 @@ def stemize(text) -> List[str]:
     def zip_tokens(tokens):
         for zip_pat in zip_tag:
             if tokens[0][1] in zip_pat and tokens[-1][1] in zip_pat:
-                words, tokens = map(list, zip(*tokens))
+                words, tokens = list(map(list, list(zip(*tokens))))
                 tokens = [("".join(words), 'ZIP')]
         for word in list(zip(*tokens))[0]:
             if not word in stopwords:

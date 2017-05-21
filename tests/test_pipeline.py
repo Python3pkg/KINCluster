@@ -25,7 +25,7 @@ def test_pipeline1():
     """
     pipeline = Pipeline()
     items = [[], []]
-    for item, v in zip(pipeline.capture_item(), range(10)):
+    for item, v in zip(pipeline.capture_item(), list(range(10))):
         items[v % 2].append(item)
         assert item == Item(value=str(v))
 

@@ -31,7 +31,7 @@ class PipelineServer(Pipeline):
         conn.close()
 
     def dress_item(self, extracted, items):
-        print ('size', len(items))
-        print ('title', extracted.topic.title)
-        print ('keywords', extracted.keywords)
-        print ('quotation', extracted.quotation)
+        print(('size', len(items)))
+        print(('title', extracted.topic.title))
+        print(('keywords', extracted.keywords))
+        print(('quotation', extracted.quotation))

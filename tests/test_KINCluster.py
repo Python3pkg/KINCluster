@@ -41,7 +41,7 @@ def test_app1():
 
     extractor = Extractor(cluster)
     for idx, dump in enumerate(cluster.dumps):
-        items, vectors, counter = map(list, zip(*dump))
+        items, vectors, counter = list(map(list, list(zip(*dump))))
 
         extracted = extractor.dump(idx)
 
@@ -74,8 +74,8 @@ def test_app3():
 
     extractor = Extractor(cluster)
     for idx, dump in enumerate(cluster.dumps):
-        items, vectors, counter = map(list, zip(*dump))
+        items, vectors, counter = list(map(list, list(zip(*dump))))
         extracted = extractor.dump(idx)
 
         pipe.dress_item(extracted)
-    print (cluster.distribution)
+    print((cluster.distribution))

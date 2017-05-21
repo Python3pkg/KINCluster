@@ -1,9 +1,9 @@
 from types import ModuleType
 import logging
 
-from KINCluster.core.cluster import Cluster
-from KINCluster.core.extractor import Extractor
-from KINCluster import settings as sets
+from .KINCluster.core.cluster import Cluster
+from .KINCluster.core.extractor import Extractor
+from .KINCluster import settings as sets
 
 class KINCluster:
     __log = logging
@@ -19,7 +19,7 @@ class KINCluster:
         if isinstance(settings, ModuleType):
             settings = getattrs(settings)
         if isinstance(settings, dict):
-            for key, value in settings.items():
+            for key, value in list(settings.items()):
                 self.settings[key] = value
 
         self.pipeline = pipeline

@@ -7,7 +7,7 @@ class Item:
         why?: str and repr must return same value always
         """
         self.__e = OrderedDict()
-        for key, value in kwargs.items():
+        for key, value in list(kwargs.items()):
             try:
                 setattr(self, key, value)
             except:
@@ -34,10 +34,10 @@ class Item:
     def values(self) -> List[Any]:
         """ return element values
         """
-        return self.__e.values()
+        return list(self.__e.values())
 
     @property
     def keys(self) -> List[Any]:
         """ return element keys
         """
-        return self.__e.keys()
+        return list(self.__e.keys())

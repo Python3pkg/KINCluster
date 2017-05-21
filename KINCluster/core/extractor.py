@@ -38,8 +38,8 @@ extractable function must have argument(iid: itemID)
         """print extractable function documents
         """
         print('extractable help')
-        for f in extractable.s.values():
-            print(f.__name__, f.__doc__)
+        for f in list(extractable.s.values()):
+            print((f.__name__, f.__doc__))
 
 class Extractor:
     """Extractor is extract feature from cluster
@@ -78,8 +78,8 @@ Default extractable:
         return counter
 
     def dump(self, iid: itemID) -> Item:
-        items, vectors, counters = map(list, zip(*self.__c.dumps[iid]))
-        return Item(**{e: f(self, items, vectors, counters) for e, f in extractable.s.items()})
+        items, vectors, counters = list(map(list, list(zip(*self.__c.dumps[iid]))))
+        return Item(**{e: f(self, items, vectors, counters) for e, f in list(extractable.s.items())})
 
     @extractable
     def items(self, items: List[Item], vectors: np.ndarray, counters: List[Counter]) -> List[Item]:
@@ -116,12 +116,12 @@ Default extractable:
         def _get_f(t: wID) -> float:
             return float(counter[t])
         def _get_tf(t: wID) -> float:
-            max_f = max([_get_f(w) for w in counter.keys()])
+            max_f = max([_get_f(w) for w in list(counter.keys())])
             return .5 + (.5 * _get_f(t) / max_f)
         def _get_idf() -> float:
             return 0.01 + normalize(len(self.__c.items)/len(vectors))
         def _get_score(t: wID) -> float:
             return _get_tf(t) * _get_idf() + _get_f(t) * 0.001
 
-        words = [(w, _get_score(w)) for w in filter(is_noun, counter.keys())]
+        words = [(w, _get_score(w)) for w in filter(is_noun, list(counter.keys()))]
         return sorted(words, key=lambda w: -float(w[1]))[:top]
